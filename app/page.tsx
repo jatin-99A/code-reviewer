@@ -1,9 +1,14 @@
 import { ModeToggle } from "@/components/ui/toggle-mode";
+import { UserMenuWithSession } from "./features/auth/client-components/user-menu-with-session";
 
-export default function Home() {
+
+const Home = () => {
   return (
     <div>
-      <ModeToggle />
+          <ModeToggle />
+          <UserMenuWithSession variant="compact"/>
     </div>
-  );
+  )
 }
+
+export default Home
