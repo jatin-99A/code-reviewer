@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import db from "./db";
 import { nextCookies } from "better-auth/next-js";
-import env from "@/app/config/env";
+import env from "@/config/env";
 
 const prisma = await db();
 export const auth = betterAuth({

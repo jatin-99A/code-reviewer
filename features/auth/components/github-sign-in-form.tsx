@@ -1,5 +1,5 @@
 import { signInWithGithub } from "../actions";
-import { SubmitButton } from "../client-components/submit-button";
+import { SubmitButton } from "./submit-button.client";
 
 
 type GithubSignInFormProps = {

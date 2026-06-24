@@ -1,12 +1,17 @@
-import { ModeToggle } from "@/components/ui/toggle-mode";
-import { UserMenuWithSession } from "./features/auth/client-components/user-menu-with-session";
-
+import CTA from "@/features/home/components/cta";
+import Features from "@/features/home/components/features";
+import Footer from "@/features/home/components/footer";
+import Hero from "@/features/home/components/hero";
+import { Navbar } from "@/features/home/components/navbar";
 
 const Home = () => {
   return (
-    <div>
-          <ModeToggle />
-          <UserMenuWithSession variant="compact"/>
+    <div className='relative min-h-screen'>
+      <Navbar />
+      <Hero />
+      <Features />
+      <CTA />
+      <Footer />
     </div>
   )
 }

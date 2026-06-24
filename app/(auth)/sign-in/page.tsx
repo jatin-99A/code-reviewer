@@ -13,7 +13,7 @@ import {
     FieldGroup,
     FieldSet,
 } from "@/components/ui/field";
-import { GithubSignInForm } from '@/app/features/auth/components/github-sign-in-form';
+import { GithubSignInForm } from '@/features/auth/components/github-sign-in-form';
 
 
 export const metadata: Metadata = {
@@ -29,11 +29,11 @@ type SignInPageProps = {
 const SignInPage = async ({ searchParams }: SignInPageProps) => {
     const { callbackUrl } = await searchParams;
     return (
-        <Card className="border-border/80 shadow-sm">
+        <Card className="border-b border-border/40 bg-background/30 dark:bg-background/10">
             <CardHeader className="items-center text-center">
                 <div className="mb-6 flex justify-center pt-2">
                     <Image
-                        src="/favicon.png"
+                        src="/logo.png"
                         alt="Chai AI Code Reviewer"
                         width={172}
                         height={172}

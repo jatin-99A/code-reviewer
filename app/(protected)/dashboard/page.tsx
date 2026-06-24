@@ -1,7 +1,9 @@
-const page = () => {
-  return (
-    <h1>Dashboard Page</h1>
-  )
+import React from 'react'
+
+const Dashbaord = () => {
+    return (
+        <div>Dashbaord</div>
+    )
 }
 
-export default page
+export default Dashbaord

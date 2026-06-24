@@ -11,7 +11,7 @@ export function Logout() {
         await authClient.signOut({
             fetchOptions: {
                 onSuccess: () => {
-                    router.push(SIGN_IN_PATH);
+                    router.push("/");
                 },
             },
         });
