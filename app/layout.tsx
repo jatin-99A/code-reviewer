@@ -4,8 +4,6 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import QueryProvider from "@/components/providers/query-provider";
-import { SessionProvider } from "@/components/providers/session-provider";
-import { getServerSession } from "@/features/auth/actions/index";
 
 const robotoHeading = Roboto({ subsets: ['latin'], variable: '--font-heading' });
 
@@ -35,8 +33,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const session = await getServerSession();
-
   return (
     <html
       lang="en"
@@ -44,18 +40,16 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen">
-        <SessionProvider session={session}>
-          <QueryProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="light"
-            >
-              <div className="w-full h-full relative bg-primary/5 dark:bg-[#111111]">
-                {children}
-              </div>
-            </ThemeProvider>
-          </QueryProvider>
-        </SessionProvider>
+        <QueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+          >
+            <div className="w-full h-full relative bg-primary/10 dark:bg-[#111111]">
+              {children}
+            </div>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

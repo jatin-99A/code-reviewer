@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 import { GitHubIcon } from "@/components/icons/github-icon";
 import HeadingAnimation from "./heading-animation.client";
 import { Button } from "@/components/ui/button";

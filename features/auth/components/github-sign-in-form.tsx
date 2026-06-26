@@ -1,6 +1,6 @@
+export const dynamic = "force-static";
 import { signInWithGithub } from "../actions";
 import { SubmitButton } from "./submit-button.client";
-
 
 type GithubSignInFormProps = {
     callbackUrl?: string;

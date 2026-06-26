@@ -1,5 +1,8 @@
+export const dynamic = "force-static";
+
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
+import Link from "next/link";
 
 export default function CTA() {
   return (
@@ -19,9 +22,11 @@ export default function CTA() {
         </p>
 
         <div className="mt-8">
-          <Button size="lg">
-            Start Free Today
-          </Button>
+          <Link href={"/sign-in"}>
+            <Button size="lg">
+              Start Free Today
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

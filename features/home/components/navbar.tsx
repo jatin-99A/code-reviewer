@@ -1,9 +1,11 @@
+export const dynamic = "force-static";
+
 import Link from "next/link";
-import { UserMenuWithSession } from "@/features/auth/components/user-menu-with-session.client";
+import { UserMenuWithSession } from "@/features/auth/components/user-menu-with-session";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/ui/toggle-mode";
 import { NavbarAnimation } from "./navbar-animation.client";
-import { AuthGate } from "@/features/common/auth-gate.client";
+import { AuthGate } from "@/features/common/auth-gate";
 
 
 export function Navbar() {
@@ -21,15 +23,22 @@ export function Navbar() {
                     <a href="#results" className="hover:text-foreground transition-colors">Results</a>
                     <a href="#why" className="hover:text-foreground transition-colors">Why us</a>
                     <a href="#faq" className="hover:text-foreground transition-colors">FAQ</a>
+                    <AuthGate isRequired={true}>
+                        <Link href="/dashboard" className="hover:text-foreground transition-colors">
+                            Dashboard
+                        </Link>
+                    </AuthGate>
                 </nav>
+
                 <div className="flex items-center gap-2">
                     <ModeToggle />
 
                     <UserMenuWithSession variant="compact" />
 
+                    {/* auth navigations */}
                     <AuthGate isRequired={false}>
                         <Link href="/sign-in">
-                            <Button variant="ghost" size="sm">Sign in</Button>
+                            <Button variant="ghost" className="hover:bg-indigo-500 hover:text-white" size="sm">Sign in</Button>
                         </Link>
 
                         <Link href="/sign-in">

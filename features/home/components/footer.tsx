@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 import { GitHubIcon } from "@/components/icons/github-icon";
 import { Mail, ArrowUpRight } from "lucide-react";
 

@@ -2,44 +2,23 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@/lib/generated/prisma/client";
 import env from "@/config/env";
 
-const connectionString = `${env.DATABASE_URL}`;
+const connectionString = `${env.DATABASE_URL}?connection_limit=10&pool_timeout=20&connect_timeout=10`;
 
-// helper for create client
 const createClient = () => {
     const adapter = new PrismaPg({ connectionString });
     return new PrismaClient({ adapter });
 };
 
-let cached = (globalThis as any).prisma;
+const globalForPrisma = globalThis as unknown as {
+    prisma: PrismaClient | undefined;
+};
 
-if (!cached) {
-    cached = (globalThis as any).prisma = { instance: null, promise: null };
+const prisma =
+    globalForPrisma.prisma ??
+    createClient();
+
+if (env.NODE_ENV !== "production") {
+    globalForPrisma.prisma = prisma;
 }
 
-async function db() {
-
-    if (process.env.NODE_ENV === "production") {
-        return createClient();
-    }
-
-    if (cached.instance) {
-        return cached.instance;
-    }
-
-    if (!cached.promise) {
-        cached.promise = Promise.resolve().then(() => {
-            return createClient();
-        });
-    }
-
-    try {
-        cached.instance = await cached.promise;
-    } catch (e) {
-        cached.promise = null;
-        throw e;
-    }
-
-    return cached.instance;
-}
-
-export default db;
+export default prisma;
