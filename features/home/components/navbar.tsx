@@ -2,10 +2,11 @@ export const dynamic = "force-static";
 
 import Link from "next/link";
 import { UserMenuWithSession } from "@/features/auth/components/user-menu-with-session";
-import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/ui/toggle-mode";
 import { NavbarAnimation } from "./navbar-animation.client";
-import { AuthGate } from "@/features/common/auth-gate";
+import * as React from "react";
+import { DashboardLink, DashboardLinkSkeleton } from "./dashboard-link";
+import NavbarRightSiteSkeleton, { NavbarRightSite } from "./navbar-right-part";
 
 
 export function Navbar() {
@@ -23,11 +24,9 @@ export function Navbar() {
                     <a href="#results" className="hover:text-foreground transition-colors">Results</a>
                     <a href="#why" className="hover:text-foreground transition-colors">Why us</a>
                     <a href="#faq" className="hover:text-foreground transition-colors">FAQ</a>
-                    <AuthGate isRequired={true}>
-                        <Link href="/dashboard" className="hover:text-foreground transition-colors">
-                            Dashboard
-                        </Link>
-                    </AuthGate>
+                    <React.Suspense fallback={<DashboardLinkSkeleton />}>
+                        <DashboardLink />
+                    </React.Suspense>
                 </nav>
 
                 <div className="flex items-center gap-2">
@@ -36,17 +35,9 @@ export function Navbar() {
                     <UserMenuWithSession variant="compact" />
 
                     {/* auth navigations */}
-                    <AuthGate isRequired={false}>
-                        <Link href="/sign-in">
-                            <Button variant="ghost" className="hover:bg-indigo-500 hover:text-white" size="sm">Sign in</Button>
-                        </Link>
-
-                        <Link href="/sign-in">
-                            <Button size="sm" className="bg-primary text-primary-foreground hover:opacity-90 p-4">
-                                Get started
-                            </Button>
-                        </Link>
-                    </AuthGate>
+                    <React.Suspense fallback={<NavbarRightSiteSkeleton />}>
+                        <NavbarRightSite />
+                    </React.Suspense>
                 </div>
             </div>
         </NavbarAnimation>

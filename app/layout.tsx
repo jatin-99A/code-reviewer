@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import QueryProvider from "@/components/providers/query-provider";
+import NextTopLoader from 'nextjs-toploader';
 
 const robotoHeading = Roboto({ subsets: ['latin'], variable: '--font-heading' });
 
@@ -45,6 +46,10 @@ export default async function RootLayout({
             attribute="class"
             defaultTheme="light"
           >
+            <NextTopLoader 
+             color="red"
+              showSpinner={false}
+            />
             <div className="w-full h-full relative bg-primary/10 dark:bg-[#111111]">
               {children}
             </div>

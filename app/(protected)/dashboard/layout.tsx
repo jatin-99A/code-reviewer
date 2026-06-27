@@ -1,6 +1,26 @@
-import * as React from "react";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { Sidebar } from "@/features/dashboard/components/dashboard-sidebar";
 
-export default async function layout({ children }: { children: React.ReactNode }) {
+export default function DashboardLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return (
+        <div className="h-screen flex bg-background">
+            <SidebarProvider>
 
-    return <div className="min-h-svh">{children}<h1>Dashbaord</h1></div>;
+                <Sidebar />
+
+                {/* Main Area */}
+                <div className="flex flex-1 flex-col">
+                    <main className="flex-1 overflow-y-auto p-6 bg-muted/40">
+                        <div className="mx-auto w-full max-w-7xl">
+                            {children}
+                        </div>
+                    </main>
+                </div>
+            </SidebarProvider>
+        </div>
+    );
 }

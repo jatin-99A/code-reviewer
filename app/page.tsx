@@ -6,14 +6,14 @@ import { Navbar } from "@/features/home/components/navbar";
 
 const Home = () => {
   return (
-    <div className='relative min-h-screen'>
+    <div className="relative min-h-screen">
       <Navbar />
       <Hero />
       <Features />
       <CTA />
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

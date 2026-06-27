@@ -1,5 +1,7 @@
 export const SIGN_IN_PATH = "/sign-in";
+export const SIGN_UP_PATH = "/sign-ip";
 export const DEFAULT_AUTH_CALLBACK = "/";
+export const Home = "/";
 
 export function getSafeCallbackPath(
     callbackUrl: string | null | undefined
