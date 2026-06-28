@@ -1,17 +1,59 @@
-"use client"
-
 import {
-    LayoutDashboard,
-    BarChart3,
-    Users,
-    Settings,
-    FileText,
+  LayoutDashboard,
+  FolderGit2,
+  GitPullRequest,
+  GitCommitHorizontal,
+  Settings,
+  type LucideIcon,
 } from "lucide-react";
 
-export const items = [
-    { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { title: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
-    { title: "Users", href: "/dashboard/users", icon: Users },
-    { title: "Reports", href: "/dashboard/reports", icon: FileText },
-    { title: "Settings", href: "/dashboard/settings", icon: Settings },
+export interface Route {
+  label: string;
+  href: string;
+  icon: LucideIcon;
+  badge?: string;
+}
+
+export interface RouteGroup {
+  title: string;
+  routes: Route[];
+}
+
+export const dashboardRoutes: RouteGroup[] = [
+  {
+    title: "Workspace",
+    routes: [
+      {
+        label: "Overview",
+        href: "/dashboard",
+        icon: LayoutDashboard,
+      },
+      {
+        label: "Repositories",
+        href: "/dashboard/repositories",
+        icon: FolderGit2,
+      },
+      {
+        label: "Pull Requests",
+        href: "/dashboard/pull-requests",
+        icon: GitPullRequest,
+        badge: "12",
+      },
+      {
+        label: "GitHub App",
+        href: "/dashboard/github-app",
+        icon: GitCommitHorizontal,
+      },
+    ],
+  },
+  {
+    title: "Account",
+    routes: [
+      {
+        label: "Settings",
+        href: "/dashboard/settings",
+        icon: Settings,
+      },
+    ],
+  },
 ];

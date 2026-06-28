@@ -1,5 +1,3 @@
-export const dynamic = "force-static";
-
 import Link from "next/link";
 import { UserMenuWithSession } from "@/features/auth/components/user-menu-with-session";
 import { ModeToggle } from "@/components/ui/toggle-mode";

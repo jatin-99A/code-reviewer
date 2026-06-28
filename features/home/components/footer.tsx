@@ -1,94 +1,164 @@
-export const dynamic = "force-static";
-
 import { GitHubIcon } from "@/components/icons/github-icon";
-import { Mail, ArrowUpRight } from "lucide-react";
+import { Mail } from "lucide-react";
 
-const footerLinks = [
-  {
-    title: "Product",
-    links: ["Features", "Pricing", "Documentation", "Changelog"],
-  },
-  {
-    title: "Company",
-    links: ["About", "Careers", "Blog", "Contact"],
-  },
-  {
-    title: "Resources",
-    links: ["GitHub", "Community", "Support", "Status"],
-  },
-];
+const footerLinks = {
+  product: [
+    { label: "Features", href: "#features" },
+    { label: "Pricing", href: "#pricing" },
+    { label: "Documentation", href: "#" },
+    { label: "Changelog", href: "#" },
+  ],
+  company: [
+    { label: "About", href: "#" },
+    { label: "Blog", href: "#" },
+    { label: "Careers", href: "#" },
+    { label: "Contact", href: "#" },
+  ],
+  legal: [
+    { label: "Privacy Policy", href: "#" },
+    { label: "Terms of Service", href: "#" },
+    { label: "Security", href: "#" },
+  ],
+};
 
-export default function Footer() {
+export function Footer() {
   return (
-    <footer className="relative border-t bg-indigo-950">
-      <div className="mx-auto max-w-6xl px-6 py-16">
+    <footer className="border-t bg-background">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Main Footer */}
+        <div className="py-16">
+          <div className="grid grid-cols-2 gap-8 lg:gap-12 md:grid-cols-5">
+            {/* Brand */}
+            <div className="col-span-2 md:col-span-2">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-primary via-primary/90 to-primary/60 shadow-lg shadow-primary/20">
+                  <span className="text-lg font-bold text-primary-foreground">
+                    C
+                  </span>
+                </div>
 
-        {/* Top grid */}
-        <div className="grid gap-10 md:grid-cols-4">
+                <span className="text-xl font-bold text-foreground">
+                  CodeMortal
+                  <span className="text-primary">AI</span>
+                </span>
+              </div>
 
-          {/* Brand */}
-          <div className="md:col-span-1">
-            <div className="text-xl font-bold tracking-tight text-white">
-              CodeMortal<span className="text-sky-400 font-extrabold"> AI</span>
+              <p className="mb-6 max-w-xs text-muted-foreground">
+                AI-powered code review assistant that helps teams ship faster
+                and safer software directly inside GitHub.
+              </p>
+
+              <div className="flex gap-4">
+                <a
+                  href="#"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-muted text-muted-foreground transition-all duration-300 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:shadow-lg hover:shadow-primary/20"
+                >
+                  <GitHubIcon className="h-5 w-5" />
+                </a>
+
+                <a
+                  href="#"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-muted text-muted-foreground transition-all duration-300 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:shadow-lg hover:shadow-primary/20"
+                >
+                  <Mail className="h-5 w-5" />
+                </a>
+              </div>
             </div>
 
-            <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-              AI-powered code review assistant that helps teams ship
-              faster and safer software directly inside GitHub.
-            </p>
+            {/* Product */}
+            <div>
+              <h3 className="mb-4 font-semibold text-foreground">
+                Product
+              </h3>
 
-            <div className="mt-5 flex gap-3 text-muted-foreground">
-              <GitHubIcon className="h-5 w-5 hover:text-white cursor-pointer transition" />
-              {/* <Twitter className="h-5 w-5 hover:text-white cursor-pointer transition" /> */}
-              <Mail className="h-5 w-5 hover:text-white cursor-pointer transition" />
-            </div>
-          </div>
-
-          {/* Links */}
-          {footerLinks.map((group) => (
-            <div key={group.title}>
-              <h4 className="text-sm font-semibold text-white">
-                {group.title}
-              </h4>
-
-              <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-                {group.links.map((link) => (
-                  <li
-                    key={link}
-                    className="flex items-center gap-1 hover:text-white cursor-pointer transition"
-                  >
-                    {link}
-                    <ArrowUpRight className="h-3.5 w-3.5 opacity-60" />
+              <ul className="space-y-3">
+                {footerLinks.product.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className="text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>
             </div>
-          ))}
+
+            {/* Company */}
+            <div>
+              <h3 className="mb-4 font-semibold text-foreground">
+                Company
+              </h3>
+
+              <ul className="space-y-3">
+                {footerLinks.company.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className="text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h3 className="mb-4 font-semibold text-foreground">
+                Legal
+              </h3>
+
+              <ul className="space-y-3">
+                {footerLinks.legal.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className="text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
 
-        {/* Divider */}
-        <div className="my-10 border-t" />
-
-        {/* Bottom bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} CodeMortalAI. All rights reserved.
+        {/* Bottom */}
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-border py-6 sm:flex-row">
+          <p className="text-sm text-muted-foreground">
+            © 2026 CodeMortalAI. All rights reserved.
           </p>
 
-          <div className="flex items-center gap-6 text-xs text-muted-foreground">
-            <span className="hover:text-white cursor-pointer transition">
+          <div className="flex items-center gap-6">
+            <a
+              href="#"
+              className="text-sm text-muted-foreground transition-colors hover:text-primary"
+            >
               Privacy Policy
-            </span>
-            <span className="hover:text-white cursor-pointer transition">
+            </a>
+
+            <a
+              href="#"
+              className="text-sm text-muted-foreground transition-colors hover:text-primary"
+            >
               Terms
-            </span>
-            <span className="hover:text-white cursor-pointer transition">
+            </a>
+
+            <a
+              href="#"
+              className="text-sm text-muted-foreground transition-colors hover:text-primary"
+            >
               Security
-            </span>
+            </a>
           </div>
         </div>
       </div>
     </footer>
   );
 }
+
+export default Footer;

@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import Link from "next/link";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";

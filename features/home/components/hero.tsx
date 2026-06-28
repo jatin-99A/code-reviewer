@@ -1,47 +1,34 @@
-export const dynamic = "force-static";
+import HeroContent from "./hero-content";
+import HeroPreview from "./hero-preview";
 
-import { GitHubIcon } from "@/components/icons/github-icon";
-import HeadingAnimation from "./heading-animation.client";
-import { Button } from "@/components/ui/button";
-import { ArrowRight,  } from "lucide-react";
-
-export default function Hero() {
+export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-28 px-6 text-center bg-primary/30 dark:bg-background">
-      <div className="mx-auto max-w-4xl">
+    <section className="relative min-h-screen flex items-center overflow-hidden">
 
-        <HeadingAnimation />
+      {/* Background */}
+      <div className="absolute inset-0 bg-linear-to-br from-background via-background to-primary/5 dark:from-background dark:via-background dark:to-primary/10" />
 
-        <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-          AI-powered code review assistant that understands context,
-          catches bugs, and improves your GitHub pull requests instantly.
-        </p>
-
-        <div className="mt-10 flex items-center justify-center gap-4">
-          <Button size="lg" className="gap-2">
-            Get Started
-            <ArrowRight size={18} />
-          </Button>
-
-          <Button variant="outline" size="lg" className="gap-2">
-            <GitHubIcon />
-            View GitHub
-          </Button>
-        </div>
-
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-          <div className="rounded-xl border p-4 bg-muted/30">
-            ⚡ 10x faster PR reviews
-          </div>
-          <div className="rounded-xl border p-4 bg-muted/30">
-            🔒 Secure by design
-          </div>
-          <div className="rounded-xl border p-4 bg-muted/30">
-            🤖 AI-powered insights
-          </div>
-        </div>
-
+      {/* Orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 -left-4 w-72 h-72 bg-primary/30 rounded-full blur-3xl opacity-30 animate-pulse" />
+        <div className="absolute top-0 -right-4 w-72 h-72 bg-primary/20 rounded-full blur-3xl opacity-30 animate-pulse" />
+        <div className="absolute -bottom-8 left-1/3 w-72 h-72 bg-primary/10 rounded-full blur-3xl opacity-20 animate-pulse" />
       </div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+          <HeroContent />
+          <HeroPreview />
+
+        </div>
+      </div>
+
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 }
+
+export default Hero;

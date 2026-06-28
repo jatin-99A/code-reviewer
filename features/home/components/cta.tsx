@@ -1,5 +1,3 @@
-export const dynamic = "force-static";
-
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
