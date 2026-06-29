@@ -46,11 +46,11 @@ export default async function RootLayout({
             attribute="class"
             defaultTheme="light"
           >
-            <NextTopLoader 
-             color="red"
+            <NextTopLoader
+              color="red"
               showSpinner={false}
             />
-            <div className="w-full h-full relative bg-primary/10 dark:bg-[#111111]">
+            <div className="w-full h-full relative bg-blue-100/40">
               {children}
             </div>
           </ThemeProvider>

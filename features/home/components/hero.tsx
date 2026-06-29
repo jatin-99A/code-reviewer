@@ -5,10 +5,7 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
 
-      {/* Background */}
-      <div className="absolute inset-0 bg-linear-to-br from-background via-background to-primary/5 dark:from-background dark:via-background dark:to-primary/10" />
-
-      {/* Orbs */}
+      {/* background bubble effect */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 -left-4 w-72 h-72 bg-primary/30 rounded-full blur-3xl opacity-30 animate-pulse" />
         <div className="absolute top-0 -right-4 w-72 h-72 bg-primary/20 rounded-full blur-3xl opacity-30 animate-pulse" />
@@ -24,9 +21,6 @@ export function Hero() {
 
         </div>
       </div>
-
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 }

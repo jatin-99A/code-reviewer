@@ -31,7 +31,7 @@ export function Footer() {
             {/* Brand */}
             <div className="col-span-2 md:col-span-2">
               <div className="mb-4 flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-primary via-primary/90 to-primary/60 shadow-lg shadow-primary/20">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br from-primary via-primary/90 to-primary/60 shadow-lg shadow-primary/20">
                   <span className="text-lg font-bold text-primary-foreground">
                     C
                   </span>

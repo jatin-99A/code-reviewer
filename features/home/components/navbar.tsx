@@ -7,7 +7,7 @@ import { DashboardLink, DashboardLinkSkeleton } from "./dashboard-link";
 import NavbarRightSiteSkeleton, { NavbarRightSite } from "./navbar-right-part";
 
 
-export function Navbar() {
+ function Navbar() {
     return (
         <NavbarAnimation>
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
@@ -41,3 +41,5 @@ export function Navbar() {
         </NavbarAnimation>
     );
 }
+
+export default Navbar;

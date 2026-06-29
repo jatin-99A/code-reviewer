@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { GitPullRequest, MessageSquare } from "lucide-react";
+import Link from "next/link";
 
 const reviewExamples = [
   {
@@ -60,10 +61,10 @@ export default function HeroPreview() {
                     {r.file}
                   </div>
 
-                  <div className="bg-muted rounded-lg p-3 font-mono">
-                    <span className="text-primary">const</span> query ={" "}
-                    <span className="text-primary/80">
-                      SELECT * FROM users
+                  <div className=" rounded-lg p-3 font-mono bg-blue-600 dark:bg-blue-800">
+                    <span className="text-green-400 font-bold">const  </span> 
+                    <span className="text-green-400 font-bold">
+                      <span className="text-white">query</span> = SELECT * FROM users
                     </span>
                   </div>
                 </div>
@@ -91,7 +92,7 @@ export default function HeroPreview() {
             </span>
 
             <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-              Apply Suggestions
+              <Link href={"./dashboard/github-app"}>Apply Suggestions</Link>
             </Button>
           </div>
 
@@ -99,7 +100,7 @@ export default function HeroPreview() {
       </div>
 
       {/* Glow */}
-      <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 blur-2xl -z-10 rounded-3xl" />
+      <div className="absolute -inset-4 bg-linear-to-r from-primary/20 via-primary/10 to-primary/20 blur-2xl -z-10 rounded-3xl" />
 
       {/* Stats */}
       <div className="absolute -bottom-6 -left-6 bg-background border border-border rounded-xl px-4 py-3 shadow-xl">
