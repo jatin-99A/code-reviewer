@@ -11,7 +11,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Logout } from "../client-components/handle-sign-out";
+import { Logout } from "./handle-sign-out.client";
 import { ChevronsUpDownIcon, LogOutIcon } from "lucide-react";
 
 const DEFAULT_PLAN = "Free";
@@ -76,35 +76,28 @@ export function UserMenu({
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger
-                className={cn(className)}
-                render={
-                    variant === "compact" ? (
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="rounded-full"
-                            aria-label="Open account menu"
-                        />
-                    ) : (
-                        <Button
-                            variant="ghost"
-                            className="h-9 gap-2 px-2"
-                            aria-label="Open account menu"
-                        />
-                    )
-                }
-            >
-                <UserAvatar user={user} size={variant === "compact" ? "default" : "sm"} />
-                {variant === "profile" ? (
-                    <>
-                        <span className="max-w-32 truncate text-left text-xs font-medium">
-                            {displayName}
-                        </span>
-                        <ChevronsUpDownIcon className="size-4 text-muted-foreground" />
-                    </>
-                ) : null}
+            <DropdownMenuTrigger asChild>
+                <Button
+                    variant="ghost"
+                    className={cn(
+                        variant === "compact" ? "rounded-full size-10" : "h-9 gap-2 px-2",
+                        className
+                    )}
+                    aria-label="Open account menu"
+                >
+                    <UserAvatar user={user} size={variant === "compact" ? "default" : "sm"} />
+
+                    {variant === "profile" && (
+                        <>
+                            <span className="max-w-32 truncate text-left text-xs font-medium">
+                                {displayName}
+                            </span>
+                            <ChevronsUpDownIcon className="size-4 text-muted-foreground" />
+                        </>
+                    )}
+                </Button>
             </DropdownMenuTrigger>
+
             <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuGroup>
                     <DropdownMenuLabel className="p-0 font-normal">

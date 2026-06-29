@@ -12,6 +12,8 @@ const env = {
     BETTER_AUTH_SECRET: requireEnv("BETTER_AUTH_SECRET"),
     GITHUB_CLIENT_SECRET: requireEnv("GITHUB_CLIENT_SECRET"),
     GITHUB_CLIENT_ID: requireEnv("GITHUB_CLIENT_ID"),
+    NODE_ENV: requireEnv("NODE_ENV"),
+    APPLICATION_NAME: requireEnv("APPLICATION_NAME"),
 } as const;
 
 export default env;
