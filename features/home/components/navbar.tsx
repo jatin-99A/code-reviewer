@@ -5,6 +5,7 @@ import { NavbarAnimation } from "./navbar-animation.client";
 import * as React from "react";
 import { DashboardLink, DashboardLinkSkeleton } from "./dashboard-link";
 import NavbarRightSiteSkeleton, { NavbarRightSite } from "./navbar-right-part";
+import env from "@/config/env";
 
 
  function Navbar() {
@@ -15,7 +16,7 @@ import NavbarRightSiteSkeleton, { NavbarRightSite } from "./navbar-right-part";
                     <div className="grid h-8 w-8 place-items-center rounded-lg">
                         <img src="/logo.png" alt="logo" />
                     </div>
-                    <span className="font-display text-lg font-semibold">CodeMortal</span>
+                    <span className="font-display text-lg font-semibold">{env.APPLICATION_NAME}</span>
                 </Link>
                 <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
                     <a href="#comparison" className="hover:text-foreground transition-colors">Comparison</a>

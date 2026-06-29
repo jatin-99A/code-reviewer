@@ -1,4 +1,5 @@
 import { GitHubIcon } from "@/components/icons/github-icon";
+import env from "@/config/env";
 import { Mail } from "lucide-react";
 
 const footerLinks = {
@@ -31,14 +32,12 @@ export function Footer() {
             {/* Brand */}
             <div className="col-span-2 md:col-span-2">
               <div className="mb-4 flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br from-primary via-primary/90 to-primary/60 shadow-lg shadow-primary/20">
-                  <span className="text-lg font-bold text-primary-foreground">
-                    C
-                  </span>
+                <div className="flex h-11 w-11 items-center justify-center">
+                  <img src="/logo.png" alt="logo" />
                 </div>
 
                 <span className="text-xl font-bold text-foreground">
-                  CodeMortal
+                  {env.APPLICATION_NAME}
                   <span className="text-primary">AI</span>
                 </span>
               </div>
@@ -130,7 +129,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="flex flex-col items-center justify-between gap-4 border-t border-border py-6 sm:flex-row">
           <p className="text-sm text-muted-foreground">
-            © 2026 CodeMortalAI. All rights reserved.
+            © 2026 {env.APPLICATION_NAME}AI. All rights reserved.
           </p>
 
           <div className="flex items-center gap-6">

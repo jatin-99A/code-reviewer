@@ -1,6 +1,5 @@
-import { Bell, Search } from "lucide-react";
+import { Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface TopBarProps {
   title: string;
@@ -21,27 +20,11 @@ export function TopBar({ title, description }: TopBarProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="h-8 w-8 text-muted-foreground hover:text-foreground"
-        >
-          <Search className="h-4 w-4" />
-        </Button>
-
-        <Button
-          variant="ghost"
-          size="icon"
           className="relative h-8 w-8 text-muted-foreground hover:text-foreground"
         >
           <Bell className="h-4 w-4" />
           <span className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full bg-destructive" />
         </Button>
-
-        <div className="ml-2 h-4 w-px bg-border" />
-
-        <Avatar className="h-7 w-7">
-          <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">
-            J
-          </AvatarFallback>
-        </Avatar>
       </div>
     </header>
   );

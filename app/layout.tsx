@@ -50,7 +50,7 @@ export default async function RootLayout({
               color="red"
               showSpinner={false}
             />
-            <div className="w-full h-full relative bg-blue-100/40">
+            <div className="w-full h-full relative bg-blue-100/40 dark:bg-background">
               {children}
             </div>
           </ThemeProvider>
