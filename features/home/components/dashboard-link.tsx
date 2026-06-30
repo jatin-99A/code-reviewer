@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/features/common/skeleton";
 
 export async function DashboardLink() {
     const session = await auth.api.getSession({

@@ -16,7 +16,7 @@ export async function signInWithGithub(formData: FormData) {
     const result = await auth.api.signInSocial({
         body: {
             provider: "github",
-            callbackURL: redirectTo
+            callbackURL: decodeURIComponent(redirectTo)
         },
         headers: await headers(),
     });
