@@ -18,6 +18,14 @@ export interface RouteGroup {
   title: string;
   routes: Route[];
 }
+export const DASHBOARD_ROUTES = {
+  overview: "/dashboard",
+  repos: "/dashboard/repositories",
+  pullRequests: "/dashboard/pull-requests",
+  github: "/dashboard/github-app",
+  settings: "/dashboard/settings",
+} as const;
+
 
 export const dashboardRoutes: RouteGroup[] = [
   {

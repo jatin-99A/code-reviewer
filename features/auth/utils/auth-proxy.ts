@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { getSafeCallbackPath, SIGN_IN_PATH } from "./index";
+import { getSafeCallbackPath, SIGN_IN_PATH, SIGN_UP_PATH } from "./index";
 import { NextRequest, NextResponse } from "next/server";
 
 // Helpers functions for auth proxy
@@ -8,7 +8,7 @@ function redirectToSignIn(request: NextRequest, pathname: string) {
     // Include query string so filters/search params survive the round-trip through sign-in
     signInUrl.searchParams.set(
         "callbackUrl",
-        `${pathname}${request.nextUrl.search}`,
+        encodeURIComponent(`${pathname}${request.nextUrl.search}`),
     );
     return NextResponse.redirect(signInUrl);
 }
@@ -32,7 +32,7 @@ export async function handleAuthProxy(request: NextRequest) {
         headers: request.headers,
     });
 
-    if (pathname === SIGN_IN_PATH) {
+    if (pathname === SIGN_IN_PATH || pathname === SIGN_UP_PATH) {
         if (session) {
             const redirectPath = getPostAuthRedirectPath(request);
             return NextResponse.redirect(new URL(redirectPath, request.url));
