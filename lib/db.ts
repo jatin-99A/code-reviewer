@@ -1,6 +1,6 @@
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@/lib/generated/prisma/client";
-import env from "@/config/env";
+import env from "@/lib/env";
 
 const connectionString = `${env.DATABASE_URL}?connection_limit=10&pool_timeout=20&connect_timeout=10`;
 

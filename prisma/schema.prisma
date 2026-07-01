@@ -14,15 +14,15 @@ model checking {
 
 // Authentication schemas
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  sessions      Session[]
-  accounts      Account[]
+  id                 String              @id
+  name               String
+  email              String
+  emailVerified      Boolean             @default(false)
+  image              String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  sessions           Session[]
+  accounts           Account[]
   githubInstallation GithubInstallation?
 
   @@unique([email])
@@ -78,15 +78,22 @@ model Verification {
 }
 
 // Github Installation schemas
+enum GithubInstallationStatus {
+  ACTIVE
+  PENDING_DELETE
+  DELETE_FAILED
+}
+
 model GithubInstallation {
-  id             String   @id @default(cuid())
-  userId         String   @unique
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  installationId Int 
+  id             String                   @id @default(cuid())
+  userId         String                   @unique
+  user           User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  installationId Int
+  status         GithubInstallationStatus @default(ACTIVE)
   accountLogin   String?
   accountType    String?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime                 @default(now())
+  updatedAt      DateTime                 @updatedAt
 
   @@map("github_installation")
 }

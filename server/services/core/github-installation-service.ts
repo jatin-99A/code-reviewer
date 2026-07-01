@@ -1,10 +1,12 @@
 import type { GithubInstallationStatus } from "@/features/dashboard/utils/types";
 import prisma from "@/lib/db";
-import { GithubAppService } from "@/features/github/services/github-app-service";
+import { GithubAppService } from "@/server/services/github/github-app-service";
 import { DASHBOARD_ROUTES } from "@/features/dashboard/utils/routes";
+import { GithubQueue } from "@/lib/queue";
 
 export class GithubInstallationService {
     private userId: string;
+    private app = GithubAppService.getGithubApp();
 
     constructor(userId: string) {
         this.userId = userId;
@@ -39,12 +41,13 @@ export class GithubInstallationService {
     }
 
     public async saveInstallation(installationId: number) {
-        const app = GithubAppService.getGithubApp();
 
-        const { data } = await app.octokit.request(
+        const { data } = await this.app.octokit.request(
             "GET /app/installations/{installation_id}",
             { installation_id: installationId }
         );
+
+        console.log(data.permissions);
 
         const accountLogin = await GithubAppService.getAccountLogin(data.account);
 
@@ -70,5 +73,18 @@ export class GithubInstallationService {
 
         }
         return DASHBOARD_ROUTES.github;
+    }
+
+    public getInstallatonIdByUserId(userId: string) {
+
+    }
+
+    public async deleteInstallation(userId: string) {
+        await prisma.githubInstallation.update({
+            where: { userId },
+            data: { status: "PENDING_DELETE" },
+        });
+
+        await GithubQueue.getDeletionQueue().add("delete-installation", { userId });
     }
 }

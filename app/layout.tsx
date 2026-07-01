@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import QueryProvider from "@/components/providers/query-provider";
 import NextTopLoader from 'nextjs-toploader';
+import { Toaster } from "sonner";
 
 const robotoHeading = Roboto({ subsets: ['latin'], variable: '--font-heading' });
 
@@ -52,6 +53,9 @@ export default async function RootLayout({
             />
             <div className="w-full h-full relative bg-blue-100/40 dark:bg-background">
               {children}
+              <Toaster
+                position="top-center"
+              />
             </div>
           </ThemeProvider>
         </QueryProvider>

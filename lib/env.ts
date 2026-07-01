@@ -19,6 +19,8 @@ const env = {
     GITHUB_WEBHOOK_SECRET: requireEnv("GITHUB_WEBHOOK_SECRET"),
     NEXT_GITHUB_PUBLIC_LINK: requireEnv("NEXT_GITHUB_PUBLIC_LINK"),
     GITHUB_APP_NAME: requireEnv("GITHUB_APP_NAME"),
+    REDIS_URL: requireEnv("REDIS_URL"),
+    NEXT_PUBLIC_APP_URL: requireEnv("NEXT_PUBLIC_APP_URL"),
 } as const;
 
 export default env;

@@ -12,9 +12,8 @@ import {
     ExternalLink,
     Activity,
 } from "lucide-react";
-import { GithubInstallationService } from "@/features/github/core/github-installation-service";
-import env from "@/config/env";
-import GithubInstallationButton from "./github-installation-button.client";
+import env from "@/lib/env";
+import GithubInstallationButton from "./github-installation-button";
 import { getGithubInstallationStatus, getGithubInstallationUrl } from "../actions";
 
 async function AppStatusCard() {

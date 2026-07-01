@@ -3,7 +3,7 @@ import { dashboardRoutes } from "../utils/routes";
 import { SidebarNavItem } from "./sidebar-nav-item.client";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
-import env from "@/config/env";
+import env from "@/lib/env";
 
 export function Sidebar() {
   return (

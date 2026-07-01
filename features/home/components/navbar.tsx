@@ -5,7 +5,7 @@ import { NavbarAnimation } from "./navbar-animation.client";
 import * as React from "react";
 import { DashboardLink, DashboardLinkSkeleton } from "./dashboard-link";
 import NavbarRightSiteSkeleton, { NavbarRightSite } from "./navbar-right-part";
-import env from "@/config/env";
+import env from "@/lib/env";
 
 
  function Navbar() {
