@@ -1,5 +1,5 @@
 import { App } from "octokit";
-import env from "@/config/env";
+import env from "@/lib/env";
 
 export class GithubAppService {
     private static githubApp: App | null = null;

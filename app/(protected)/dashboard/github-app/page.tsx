@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { TopBar } from "@/features/dashboard/components/topbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -5,7 +7,7 @@ import { Webhook, Shield } from "lucide-react";
 import { permissions, webhooks } from "@/features/github/utils/github-app-meta";
 import { Metadata } from "next";
 import AppStatusCard from "@/features/github/components/app-status-card";
-import env from "@/config/env";
+import env from "@/lib/env";
 import * as React from "react";
 import AppStatusCardSkeleton from "@/features/github/components/app-status.card.skeleton";
 

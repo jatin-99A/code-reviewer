@@ -16,7 +16,7 @@ export async function NavbarRightSite() {
             <Link href="/sign-in">
                 <Button
                     variant="ghost"
-                    className="hover:bg-indigo-500 hover:text-white"
+                    className="hover:bg-primary hover:text-white"
                     size="sm"
                 >
                     Sign in

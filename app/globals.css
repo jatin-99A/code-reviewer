@@ -50,6 +50,15 @@
 
 /* ── LIGHT MODE (default) ── */
 :root {
+  --sonner-spinner-color: var(--primary);
+  --sonner-success: var(--success);
+
+  --sonner-error: var(--destructive);
+  --sonner-warning: var(--warning);
+
+  --sonner-background: var(--background);
+  --sonner-text: var(--foreground);
+
   --background: hsl(0 0% 100%);
   --foreground: hsl(222 47% 11%);
 
@@ -104,6 +113,15 @@
 
 
 .dark {
+  --sonner-spinner-color: var(--primary);
+  --sonner-success: var(--success);
+
+  --sonner-error: var(--destructive);
+  --sonner-warning: var(--warning);
+
+  --sonner-background: var(--background);
+  --sonner-text: var(--foreground);
+  
   --background: hsl(222 47% 7%);
   --foreground: hsl(210 40% 98%);
 

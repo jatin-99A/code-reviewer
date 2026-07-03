@@ -1,5 +1,5 @@
 import { GitHubIcon } from "@/components/icons/github-icon";
-import env from "@/config/env";
+import env from "@/lib/env";
 import { Mail } from "lucide-react";
 
 const footerLinks = {

@@ -1,56 +1,52 @@
-import { getServerSession } from "@/features/auth/actions"
-import { DASHBOARD_ROUTES } from "@/features/dashboard/utils/routes"
-import { GithubInstallationService } from "@/features/github/core/github-installation-service"
-import { NextRequest, NextResponse } from "next/server"
+import { getServerSession } from "@/features/auth/actions";
+import { SIGN_IN_PATH } from "@/features/auth/utils";
+import { DASHBOARD_ROUTES } from "@/features/dashboard/utils/routes";
+import env from "@/lib/env";
+import { GithubInstallationService } from "@/server/services/core/github-installation-service";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
     try {
         const { searchParams } = new URL(req.url);
 
         const installationId = searchParams.get("installation_id");
-        //Todo safe this state in safe cookies or redis if user is not logged in then get the userId for security 
         const userId = searchParams.get("state");
 
-        if (!installationId) {
-            return NextResponse.json(
-                { error: "Missing installation_id" },
-                { status: 400 }
-            )
+        if (!userId || !installationId) {
+            return NextResponse.redirect(new URL(SIGN_IN_PATH, req.url));
         }
 
         const session = await getServerSession();
 
-        if (session && userId && session.user?.id !== userId) {
-            return NextResponse.json(
-                { error: "Invalid state" },
-                { status: 403 }
-            )
+        if (session && session.user?.id !== userId) {
+            return NextResponse.redirect(new URL(SIGN_IN_PATH, req.url));
         }
 
-        const service = new GithubInstallationService(userId || "");
+        const service = new GithubInstallationService(userId);
 
+        // If not logged in redirect to signin with callback
         if (!session) {
             const callbackUrl = service.buildCallbackUrl(installationId);
 
             return NextResponse.redirect(
                 new URL(
-                    `/sign-in/callbackurl?callbackUrl=${encodeURIComponent(callbackUrl)}`,
+                    `${SIGN_IN_PATH}?callbackUrl=${encodeURIComponent(callbackUrl)}`,
                     req.url
                 )
-            )
+            );
         }
 
-        service.saveInstallation(Number(installationId))
+        await service.saveInstallation(Number(installationId));
 
         return NextResponse.redirect(
-            new URL(DASHBOARD_ROUTES.github, req.url)
-        )
+            `${env.NEXT_PUBLIC_APP_URL}/${DASHBOARD_ROUTES.github}`
+        );
+
     } catch (error) {
         console.error("GitHub callback error:", error);
-
-        return NextResponse.json(
-            { error: "Internal Server Error" },
-            { status: 500 }
-        )
+        return NextResponse.redirect(new URL(SIGN_IN_PATH, req.url));
     }
 }
+
+// TODO: Improve state handling for OAuth flow
+// ensure callback flow works even after sign-in 

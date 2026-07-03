@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "./db";
 import { nextCookies } from "better-auth/next-js";
-import env from "@/config/env";
+import env from "@/lib/env";
 import { profile } from "console";
 
 
