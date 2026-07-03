@@ -90,10 +90,10 @@ model GithubInstallation {
   user           User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
   installationId Int
   status         GithubInstallationStatus @default(ACTIVE)
-  accountLogin   String?
-  accountType    String?
+  accountLogin   String
+  accountType    String
+  permissions    Json
   createdAt      DateTime                 @default(now())
   updatedAt      DateTime                 @updatedAt
-
   @@map("github_installation")
 }

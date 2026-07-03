@@ -4,10 +4,12 @@ import { SidebarNavItem } from "./sidebar-nav-item.client";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import env from "@/lib/env";
+import SidebarToggle from "./sidebar-toggle";
 
 export function Sidebar() {
   return (
-    <aside className="flex h-full w-64 shrink-0 flex-col border-r border-border bg-sidebar">
+    <aside className="relative flex h-full w-64 shrink-0 flex-col border-r border-border bg-sidebar">
+      <SidebarToggle className="absolute right-2 top-2" />
 
       {/* Logo */}
       <div className="flex h-16 items-center gap-2.5 px-5 border-b border-border">
@@ -48,8 +50,10 @@ export function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="border-t border-border px-3 py-3 flex items-center justify-center">
-        <UserMenuWithSession />
+      <div className="w-full border-t border-border px-3 py-3 flex items-center justify-center">
+        <div className="w-full h-full flex justify-center items-center">
+          <UserMenuWithSession />
+        </div>
       </div>
     </aside>
   );

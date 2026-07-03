@@ -55,6 +55,9 @@ export default async function RootLayout({
               {children}
               <Toaster
                 position="top-center"
+                theme="light"
+                richColors
+                closeButton
               />
             </div>
           </ThemeProvider>

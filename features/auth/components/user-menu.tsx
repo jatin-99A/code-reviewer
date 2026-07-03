@@ -98,7 +98,7 @@ export function UserMenu({
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuContent align="center" className="w-56">
                 <DropdownMenuGroup>
                     <DropdownMenuLabel className="p-0 font-normal">
                         <div className="flex items-start gap-2 px-2 py-2">

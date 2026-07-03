@@ -1,5 +1,6 @@
 import { Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SidebarToggle from "./sidebar-toggle";
 
 interface TopBarProps {
   title: string;
@@ -9,11 +10,14 @@ interface TopBarProps {
 export function TopBar({ title, description }: TopBarProps) {
   return (
     <header className="flex h-16 shrink-0 items-center justify-between border-b border-border bg-background/80 backdrop-blur-sm px-6">
-      <div>
-        <h1 className="text-[17px] font-semibold text-foreground leading-tight">{title}</h1>
-        {description && (
-          <p className="text-[12px] text-muted-foreground mt-0.5">{description}</p>
-        )}
+      <div className="flex items-center gap-4">
+        <SidebarToggle />
+        <div>
+          <h1 className="text-[17px] font-semibold text-foreground leading-tight">{title}</h1>
+          {description && (
+            <p className="text-[12px] text-muted-foreground mt-0.5">{description}</p>
+          )}
+        </div>
       </div>
 
       <div className="flex items-center gap-2">

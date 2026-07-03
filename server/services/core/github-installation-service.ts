@@ -49,7 +49,7 @@ export class GithubInstallationService {
 
         console.log(data.permissions);
 
-        const accountLogin = await GithubAppService.getAccountLogin(data.account);
+        const accountLogin = await GithubAppService.getAccountLogin(data.account) as string;
 
         await prisma.githubInstallation.upsert({
             where: { userId: this.userId },
@@ -57,11 +57,13 @@ export class GithubInstallationService {
                 userId: this.userId,
                 installationId,
                 accountLogin,
+                permissions: data.permissions,
                 accountType: data.target_type ?? null,
             },
             update: {
                 installationId,
                 accountLogin,
+                permissions: data.permissions,
                 accountType: data.target_type ?? null,
             },
         });
@@ -73,10 +75,6 @@ export class GithubInstallationService {
 
         }
         return DASHBOARD_ROUTES.github;
-    }
-
-    public getInstallatonIdByUserId(userId: string) {
-
     }
 
     public async deleteInstallation(userId: string) {
