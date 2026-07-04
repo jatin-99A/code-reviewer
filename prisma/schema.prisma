@@ -77,7 +77,7 @@ model Verification {
   @@map("verification")
 }
 
-// Github Installation schemas
+// Github Installation
 enum GithubInstallationStatus {
   ACTIVE
   PENDING_DELETE
@@ -85,15 +85,161 @@ enum GithubInstallationStatus {
 }
 
 model GithubInstallation {
-  id             String                   @id @default(cuid())
-  userId         String                   @unique
-  user           User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  installationId Int
+  id String @id @default(cuid())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  installationId Int                      @unique
   status         GithubInstallationStatus @default(ACTIVE)
-  accountLogin   String
-  accountType    String
-  permissions    Json
-  createdAt      DateTime                 @default(now())
-  updatedAt      DateTime                 @updatedAt
+
+  accountLogin String
+  accountType  String
+  permissions  Json
+
+  rateLimitTotal     Int?
+  rateLimitRemaining Int?
+
+  repositories Repository[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([installationId], map: "idx_installation_github_id")
+  @@index([userId], map: "idx_installation_user")
   @@map("github_installation")
+}
+
+// Repositories 
+enum RepositoryHealthStatus {
+  HEALTHY
+  WARNING
+  CRITICAL
+}
+
+model Repository {
+  id String @id @default(cuid())
+
+  installationId String
+  installation   GithubInstallation @relation(fields: [installationId], references: [id], onDelete: Cascade)
+
+  githubRepoId BigInt @unique
+
+  name        String
+  description String?
+  mainBranch  String
+
+  healthScore  Int
+  healthStatus RepositoryHealthStatus
+
+  language String?
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+
+  pullRequests PullRequest[]
+  aiIssues     AIIssue[]
+  analytics    DailyAnalytics[]
+
+  @@index([githubRepoId], map: "idx_repo_github_id")
+  @@index([installationId], map: "idx_repo_installation")
+  @@map("repositories")
+}
+
+// Pull Requests
+enum PullRequestStatus {
+  OPEN
+  MERGED
+  IN_REVIEW
+  APPROVED
+}
+
+model PullRequest {
+  id String @id @default(cuid())
+
+  repositoryId String
+  repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+
+  githubPrId BigInt @unique
+
+  prNumber Int
+
+  title String
+
+  branchName String
+
+  status PullRequestStatus
+
+  aiScore Int?
+
+  linesAdded   Int?
+  linesDeleted Int?
+
+  openedBy String
+
+  githubCreatedAt DateTime
+
+  updatedAt DateTime @updatedAt
+
+  issues AIIssue[]
+
+  @@index([repositoryId, status], map: "idx_pr_repo_status")
+  @@index([githubPrId], map: "idx_pr_github_id")
+  @@map("pull_requests")
+}
+
+// AI Issues
+enum AIIssueSeverity {
+  CRITICAL
+  WARNING
+  NOTICE
+}
+
+enum AIIssueStatus {
+  OPEN
+  RESOLVED
+}
+
+model AIIssue {
+  id String @id @default(cuid())
+
+  pullRequestId String
+  pullRequest   PullRequest @relation(fields: [pullRequestId], references: [id], onDelete: Cascade)
+
+  repositoryId String
+  repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+
+  title String
+
+  severity AIIssueSeverity
+
+  filePath String
+
+  lineNumber Int
+
+  status AIIssueStatus
+
+  createdAt DateTime @default(now())
+
+  @@index([pullRequestId], map: "idx_issues_pr")
+  @@index([repositoryId, severity], map: "idx_issues_repo_severity")
+  @@map("ai_issues")
+}
+
+// Daily Analytics
+model DailyAnalytics {
+  id Int @id @default(autoincrement())
+
+  repositoryId String
+  repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+
+  logDate DateTime @db.Date
+
+  reviewsCount Int
+
+  issuesCount Int
+
+  @@unique([repositoryId, logDate], map: "idx_analytics_repo_date")
+  @@map("daily_analytics")
 }
