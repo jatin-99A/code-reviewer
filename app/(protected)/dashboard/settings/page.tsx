@@ -109,14 +109,12 @@ export default function SettingsPage() {
                     <p className="text-[11px] text-muted-foreground mt-0.5">{n.sub}</p>
                   </div>
                   <div
-                    className={`relative flex h-5 w-9 cursor-pointer items-center rounded-full transition-colors ${
-                      n.on ? "bg-primary" : "bg-muted"
-                    }`}
+                    className={`relative flex h-5 w-9 cursor-pointer items-center rounded-full transition-colors ${n.on ? "bg-primary" : "bg-muted"
+                      }`}
                   >
                     <div
-                      className={`absolute h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${
-                        n.on ? "translate-x-4" : "translate-x-0.5"
-                      }`}
+                      className={`absolute h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${n.on ? "translate-x-4" : "translate-x-0.5"
+                        }`}
                     />
                   </div>
                 </div>
@@ -138,11 +136,10 @@ export default function SettingsPage() {
               {plans.map((plan) => (
                 <div
                   key={plan.name}
-                  className={`relative rounded-xl border p-4 ${
-                    plan.current
+                  className={`relative rounded-xl border p-4 ${plan.current
                       ? "border-primary/50 bg-primary/5"
                       : "border-border/60 hover:border-border"
-                  }`}
+                    }`}
                 >
                   {plan.current && (
                     <Badge className="absolute -top-2 left-3 bg-primary text-primary-foreground text-[9px] h-4 px-1.5">

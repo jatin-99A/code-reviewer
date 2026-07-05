@@ -6,7 +6,7 @@ const octokit = GithubAppService.getGithubApp().octokit;
 
 
 const WorkerOptions = {
-    connection: GithubQueue.getConnection(),
+    connection: GithubQueue.getBullConnection(),
     attempts: 5,
     backoff: {
         type: "exponential",

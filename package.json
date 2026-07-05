@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "worker:github": "bun run server/workers/github-worker.ts"
+    "worker": "bun run server/workers/github-worker.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
@@ -25,6 +25,7 @@
     "dotenv": "^17.4.2",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.40.0",
+    "inngest": "^4.11.0",
     "input-otp": "^1.4.2",
     "ioredis": "^5.11.1",
     "lucide-react": "^1.18.0",
@@ -57,9 +58,6 @@
     "prisma": "^7.8.0",
     "tailwindcss": "^4",
     "typescript": "^5"
-  },
-  "overrides": {
-    "ioredis": "5.11.1"
   },
   "ignoreScripts": [
     "sharp",

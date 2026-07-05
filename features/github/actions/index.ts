@@ -5,13 +5,10 @@ import { handleServerAction } from "@/lib/server-action";
 import { getInstallationReposPage } from "@/server/services/core/github-repositories-service";
 import { GithubInstallationService } from "../../../server/services/core/github-installation-service";
 
-export async function getGithubInstallationRepositories(
-    installationId: number,
-    page = 1
-) {
+export async function getGithubInstallationRepositories(page = 1) {
     return handleServerAction(async () => {
-        await requireAuth();
-        return getInstallationReposPage(installationId, page);
+        const session = await requireAuth();
+        return getInstallationReposPage(session.user.id, page);
     }, "Failed to fetch GitHub repositories.");
 }
 
