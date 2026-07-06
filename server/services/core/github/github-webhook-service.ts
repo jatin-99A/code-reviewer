@@ -1,5 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { revalidatePath } from "next/cache";
+import { handlePr } from "../review/adaptor";
 
 export default class GithubWebhookService {
     public static async handleWebhook(req: Request): Promise<Response> {
@@ -34,6 +35,7 @@ export default class GithubWebhookService {
             }
 
             let payload: unknown;
+
             try {
                 payload = JSON.parse(rawBody) as unknown;
             } catch {
@@ -44,6 +46,7 @@ export default class GithubWebhookService {
                 return this.jsonResponse({ ok: true, message: "pong", event, delivery }, 200);
             }
 
+            // Listening uninstallationEvent
             if (this.isUninstallationEvent(event, payload)) {
                 revalidatePath("/dashboard");
                 revalidatePath("/dashboard/github");
@@ -58,6 +61,31 @@ export default class GithubWebhookService {
                     },
                     202
                 );
+            }
+
+            // Listening PR event
+            if (event === "pull_request") {
+                const allowedActions = ["opened", "synchronize", "reopened"];
+                const webhookPayload = payload as
+                    | {
+                        action?: string;
+                        installation?: { id?: number };
+                    }
+                    | null;
+
+                if (
+                    webhookPayload &&
+                    typeof webhookPayload.action === "string" &&
+                    allowedActions.includes(webhookPayload.action) &&
+                    typeof webhookPayload.installation?.id === "number"
+                ) {
+                    await handlePr({
+                        payload: webhookPayload,
+                        deliveryId: delivery,
+                        installationId: webhookPayload.installation.id,
+                        provider: "github",
+                    });
+                }
             }
 
             console.info("GitHub webhook received", { event, delivery });

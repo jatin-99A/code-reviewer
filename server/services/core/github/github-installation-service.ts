@@ -4,7 +4,7 @@ import type { GithubInstallationStatus } from "@/features/dashboard/utils/types"
 import { DASHBOARD_ROUTES } from "@/features/dashboard/utils/routes";
 import prisma from "@/lib/db";
 import { GithubQueue } from "@/lib/queue";
-import { GithubAppService } from "@/server/services/github/github-app-service";
+import { GithubAppService } from "@/server/services/integrations/github-app-service";
 import { NextRequest, NextResponse } from "next/server";
 
 export class GithubInstallationService {

@@ -2,8 +2,8 @@
 
 import { requireAuth } from "@/features/auth/actions";
 import { handleServerAction } from "@/lib/server-action";
-import { getInstallationReposPage } from "@/server/services/core/github-repositories-service";
-import { GithubInstallationService } from "../../../server/services/core/github-installation-service";
+import { getInstallationReposPage } from "@/server/services/core/github/github-repositories-service";
+import { GithubInstallationService } from "../../../server/services/core/github/github-installation-service";
 
 export async function getGithubInstallationRepositories(page = 1) {
     return handleServerAction(async () => {

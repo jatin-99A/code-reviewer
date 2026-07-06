@@ -1,6 +1,6 @@
 import { Worker } from "bullmq";
 import prisma from "@/lib/db";
-import { GithubAppService } from "../services/github/github-app-service";
+import { GithubAppService } from "../services/integrations/github-app-service";
 import { GithubQueue } from "@/lib/queue";
 const octokit = GithubAppService.getGithubApp().octokit;
 

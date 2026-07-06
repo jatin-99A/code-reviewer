@@ -21,6 +21,7 @@ const env = {
     GITHUB_APP_NAME: requireEnv("GITHUB_APP_NAME"),
     REDIS_URL: requireEnv("REDIS_URL"),
     NEXT_PUBLIC_APP_URL: requireEnv("NEXT_PUBLIC_APP_URL"),
+    OPEN_ROUTER_API_KEY: requireEnv("OPEN_ROUTER_API_KEY")
 } as const;
 
 export default env;

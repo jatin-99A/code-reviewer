@@ -1,5 +1,5 @@
 import prisma from "@/lib/db";
-import { GithubAppService } from "@/server/services/github/github-app-service";
+import { GithubAppService } from "@/server/services/integrations/github-app-service";
 
 export interface GithubRepo {
     id: number;
