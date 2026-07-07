@@ -26,13 +26,13 @@ function GithubInstallationButton({
             });
         },
         onSuccess: () => {
+            setTimeout(() => {
+                router.refresh();
+            }, 1000);
+
             toast.success("Your disconnect request has been queued. GitHub will be disconnected shortly.", {
                 id: "delete-github",
             });
-
-            setTimeout(() => {
-                router.refresh();
-            }, 500);
         },
         onError: () => {
             toast.error("Failed to disconnect GitHub", {

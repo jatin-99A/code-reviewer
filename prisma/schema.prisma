@@ -14,16 +14,18 @@ model checking {
 
 // Authentication schemas
 model User {
-  id                 String              @id
-  name               String
-  email              String
-  emailVerified      Boolean             @default(false)
-  image              String?
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
+  id            String   @id
+  name          String
+  email         String
+  emailVerified Boolean  @default(false)
+  image         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
   sessions           Session[]
   accounts           Account[]
   githubInstallation GithubInstallation?
+  gitHubPullRequests GitHubPullRequest[] // ✅ added relation
 
   @@unique([email])
   @@map("user")
@@ -77,7 +79,7 @@ model Verification {
   @@map("verification")
 }
 
-// Github Installation schemas
+// Github Installation
 enum GithubInstallationStatus {
   ACTIVE
   PENDING_DELETE
@@ -85,15 +87,78 @@ enum GithubInstallationStatus {
 }
 
 model GithubInstallation {
-  id             String                   @id @default(cuid())
-  userId         String                   @unique
-  user           User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  installationId Int
+  id String @id @default(cuid())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  installationId Int                      @unique
   status         GithubInstallationStatus @default(ACTIVE)
-  accountLogin   String
-  accountType    String
-  permissions    Json
-  createdAt      DateTime                 @default(now())
-  updatedAt      DateTime                 @updatedAt
+
+  accountLogin String
+  accountType  String
+  permissions  Json
+
+  rateLimitTotal     Int?
+  rateLimitRemaining Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  gitHubPullRequests GitHubPullRequest[] // ✅ added relation
+
+  @@index([installationId], map: "idx_installation_github_id")
+  @@index([userId], map: "idx_installation_user")
   @@map("github_installation")
+}
+
+// Pull Requests
+enum GitHubPullRequestStatus {
+  PROCESSING
+  REVIEWED
+  FAILED
+}
+
+model GitHubPullRequest {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  githubPrId BigInt @unique
+
+  installationId Int
+  installation   GithubInstallation @relation(fields: [installationId], references: [installationId], onDelete: Cascade)
+
+  repositoryId BigInt
+  deliveryId   String @unique
+
+  prNumber   Int
+  title      String
+  branchName String
+  headSha    String
+  openedBy   String
+
+  status GitHubPullRequestStatus @default(PROCESSING)
+
+  reviewComment String?
+  aiScore       Int?
+
+  linesAdded   Int?
+  linesDeleted Int?
+
+  githubCreatedAt DateTime
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  reviewedAt DateTime?
+
+  @@unique([repositoryId, prNumber])
+  @@index([userId])
+  @@index([installationId])
+  @@index([repositoryId])
+  @@index([status])
+  @@index([headSha])
+  @@index([githubCreatedAt])
+  @@map("pull_requests")
 }
