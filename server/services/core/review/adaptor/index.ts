@@ -16,7 +16,20 @@ export async function handlePr(input: {
 
     const pr = adapter.getPRData(input.payload);
 
-    const pullRequest = await prisma.pullRequest.upsert({
+    const installation = await prisma.githubInstallation.findUnique({
+        where: {
+            installationId: input.installationId,
+        },
+        select: {
+            userId: true,
+        },
+    });
+
+    if (!installation) {
+        throw new Error("GitHub installation not found");
+    }
+
+    const pullRequest = await prisma.gitHubPullRequest.upsert({
         where: {
             repositoryId_prNumber: {
                 repositoryId: BigInt(pr.repositoryId),
@@ -24,6 +37,7 @@ export async function handlePr(input: {
             },
         },
         create: {
+            userId: installation.userId,
             githubPrId: BigInt(input.payload.pull_request.id),
             installationId: input.installationId,
             repositoryId: BigInt(pr.repositoryId),
