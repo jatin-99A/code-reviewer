@@ -1,4 +1,4 @@
-import { GithubWebhookService } from "@/server/services/core/github-webhook-service";
+import { GithubWebhookService } from "@/server/services/core/github/github-webhook-service";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
