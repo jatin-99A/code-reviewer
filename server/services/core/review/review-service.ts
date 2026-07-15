@@ -1,5 +1,6 @@
 import { inngest } from "@/lib/inngest/client";
 import { TriggerPayload } from "./utils/type";
+import { handlePr } from "./adaptor";
 
 export class ReviewWorkflow {
     static async trigger(input: TriggerPayload) {
@@ -15,22 +16,17 @@ export class ReviewWorkflow {
             triggers: { event: "pr/review.triggered" },
         },
         async ({ event, step }) => {
-            const payload = event.data as TriggerPayload;
-
-            const review = await step.run("review-pr", async () => {
-                console.log("Reviewing PR:", payload);
-
-                // TODO:
-                // - Fetch PR files
-                // - Generate AI review
-                // - Post review to GitHub
-
-                return {
-                    success: true,
-                };
+            const pullRequest = await step.run("save-pr-with-mark-processing", async () => {
+                return await handlePr(event.data as TriggerPayload);
             });
 
-            return review;
+            const chunks = await step.run("split-pr-into-chunks", async () => {
+                return await getPullRequestFiles(
+                    pullRequest.installationId,
+                    pullRequest.repoFullName,
+                    pullRequest.prNumber,
+                );
+            });
         }
     );
 }

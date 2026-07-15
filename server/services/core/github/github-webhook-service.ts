@@ -1,6 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { revalidatePath } from "next/cache";
-import { handlePr } from "../review/adaptor";
+import { ReviewWorkflow } from "../review/review-service";
 
 export default class GithubWebhookService {
     public static async handleWebhook(req: Request): Promise<Response> {
@@ -79,7 +79,7 @@ export default class GithubWebhookService {
                     allowedActions.includes(webhookPayload.action) &&
                     typeof webhookPayload.installation?.id === "number"
                 ) {
-                    await handlePr({
+                    await ReviewWorkflow.trigger({
                         payload: webhookPayload,
                         deliveryId: delivery,
                         installationId: webhookPayload.installation.id,

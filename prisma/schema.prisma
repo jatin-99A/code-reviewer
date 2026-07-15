@@ -1,164 +1,164 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../lib/generated/prisma"
+    provider = "prisma-client"
+    output   = "../lib/generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
+    provider = "postgresql"
 }
 
 model checking {
-  id    String @id @default(cuid())
-  title String
+    id    String @id @default(cuid())
+    title String
 }
 
 // Authentication schemas
 model User {
-  id            String   @id
-  name          String
-  email         String
-  emailVerified Boolean  @default(false)
-  image         String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+    id            String   @id
+    name          String
+    email         String
+    emailVerified Boolean  @default(false)
+    image         String?
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt
 
-  sessions           Session[]
-  accounts           Account[]
-  githubInstallation GithubInstallation?
-  gitHubPullRequests GitHubPullRequest[] // ✅ added relation
+    sessions           Session[]
+    accounts           Account[]
+    githubInstallation GithubInstallation?
+    gitHubPullRequests GitHubPullRequest[] // ✅ added relation
 
-  @@unique([email])
-  @@map("user")
+    @@unique([email])
+    @@map("user")
 }
 
 model Session {
-  id        String   @id
-  expiresAt DateTime
-  token     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  ipAddress String?
-  userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    id        String   @id
+    expiresAt DateTime
+    token     String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    ipAddress String?
+    userAgent String?
+    userId    String
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([token])
-  @@index([userId])
-  @@map("session")
+    @@unique([token])
+    @@index([userId])
+    @@map("session")
 }
 
 model Account {
-  id                    String    @id
-  accountId             String
-  providerId            String
-  userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken           String?
-  refreshToken          String?
-  idToken               String?
-  accessTokenExpiresAt  DateTime?
-  refreshTokenExpiresAt DateTime?
-  scope                 String?
-  password              String?
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
+    id                    String    @id
+    accountId             String
+    providerId            String
+    userId                String
+    user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    accessToken           String?
+    refreshToken          String?
+    idToken               String?
+    accessTokenExpiresAt  DateTime?
+    refreshTokenExpiresAt DateTime?
+    scope                 String?
+    password              String?
+    createdAt             DateTime  @default(now())
+    updatedAt             DateTime  @updatedAt
 
-  @@index([userId])
-  @@map("account")
+    @@index([userId])
+    @@map("account")
 }
 
 model Verification {
-  id         String   @id
-  identifier String
-  value      String
-  expiresAt  DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+    id         String   @id
+    identifier String
+    value      String
+    expiresAt  DateTime
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
 
-  @@index([identifier])
-  @@map("verification")
+    @@index([identifier])
+    @@map("verification")
 }
 
 // Github Installation
 enum GithubInstallationStatus {
-  ACTIVE
-  PENDING_DELETE
-  DELETE_FAILED
+    ACTIVE
+    PENDING_DELETE
+    DELETE_FAILED
 }
 
 model GithubInstallation {
-  id String @id @default(cuid())
+    id String @id @default(cuid())
 
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String @unique
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  installationId Int                      @unique
-  status         GithubInstallationStatus @default(ACTIVE)
+    installationId Int                      @unique
+    status         GithubInstallationStatus @default(ACTIVE)
 
-  accountLogin String
-  accountType  String
-  permissions  Json
+    accountLogin String
+    accountType  String
+    permissions  Json
 
-  rateLimitTotal     Int?
-  rateLimitRemaining Int?
+    rateLimitTotal     Int?
+    rateLimitRemaining Int?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
-  gitHubPullRequests GitHubPullRequest[] // ✅ added relation
+    gitHubPullRequests GitHubPullRequest[] // ✅ added relation
 
-  @@index([installationId], map: "idx_installation_github_id")
-  @@index([userId], map: "idx_installation_user")
-  @@map("github_installation")
+    @@index([installationId], map: "idx_installation_github_id")
+    @@index([userId], map: "idx_installation_user")
+    @@map("github_installation")
 }
 
 // Pull Requests
 enum GitHubPullRequestStatus {
-  PROCESSING
-  REVIEWED
-  FAILED
+    PROCESSING
+    REVIEWED
+    FAILED
 }
 
 model GitHubPullRequest {
-  id String @id @default(cuid())
+    id String @id @default(cuid())
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  githubPrId BigInt @unique
+    githubPrId BigInt @unique
 
-  installationId Int
-  installation   GithubInstallation @relation(fields: [installationId], references: [installationId], onDelete: Cascade)
+    installationId Int
+    installation   GithubInstallation @relation(fields: [installationId], references: [installationId], onDelete: Cascade)
 
-  repositoryId BigInt
-  deliveryId   String @unique
+    repositoryId BigInt
+    deliveryId   String @unique
 
-  prNumber   Int
-  title      String
-  branchName String
-  headSha    String
-  openedBy   String
+    prNumber   Int
+    title      String
+    branchName String
+    headSha    String
+    openedBy   String
 
-  status GitHubPullRequestStatus @default(PROCESSING)
+    status GitHubPullRequestStatus @default(PROCESSING)
 
-  reviewComment String?
-  aiScore       Int?
+    reviewComment String?
+    aiScore       Int?
 
-  linesAdded   Int?
-  linesDeleted Int?
+    linesAdded   Int?
+    linesDeleted Int?
 
-  githubCreatedAt DateTime
+    githubCreatedAt DateTime
 
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  reviewedAt DateTime?
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+    reviewedAt DateTime?
 
-  @@unique([repositoryId, prNumber])
-  @@index([userId])
-  @@index([installationId])
-  @@index([repositoryId])
-  @@index([status])
-  @@index([headSha])
-  @@index([githubCreatedAt])
-  @@map("pull_requests")
+    @@unique([repositoryId, prNumber])
+    @@index([userId])
+    @@index([installationId])
+    @@index([repositoryId])
+    @@index([status])
+    @@index([headSha])
+    @@index([githubCreatedAt])
+    @@map("pull_requests")
 }

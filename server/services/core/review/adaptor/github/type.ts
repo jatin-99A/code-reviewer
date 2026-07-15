@@ -9,8 +9,4 @@ export interface PRProviderAdapter {
         openedBy: string;
         createdAt: string;
     };
-
-    isValidEvent(payload: any): boolean;
-
-    getAllowedActions(): string[];
 }

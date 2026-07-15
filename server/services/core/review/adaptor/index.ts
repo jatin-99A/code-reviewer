@@ -1,18 +1,9 @@
 import prisma from "@/lib/db";
 import { getProviderAdapter } from "./resolver";
-import { ReviewWorkflow } from "../review-service";
+import { TriggerPayload } from "../utils/type";
 
-export async function handlePr(input: {
-    payload: any;
-    deliveryId: string;
-    installationId: number;
-    provider: "github";
-}) {
+export async function handlePr(input: TriggerPayload) {
     const adapter = getProviderAdapter(input.provider);
-
-    if (!adapter.isValidEvent(input.payload)) {
-        return { skipped: true };
-    }
 
     const pr = adapter.getPRData(input.payload);
 
@@ -60,7 +51,7 @@ export async function handlePr(input: {
         },
     });
 
-    ReviewWorkflow.trigger({
+    return {
         deliveryId: input.deliveryId,
         installationId: input.installationId,
         repositoryId: pr.repositoryId,
@@ -69,11 +60,5 @@ export async function handlePr(input: {
         pullRequestTitle: pr.title,
         headSha: pr.headSha,
         action: input.payload.action,
-    });
-
-    return {
-        success: true,
-        prId: pullRequest.id,
-        status: "PROCESSING",
     };
 }

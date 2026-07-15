@@ -8,7 +8,7 @@ import NavbarRightSiteSkeleton, { NavbarRightSite } from "./navbar-right-part";
 import env from "@/lib/env";
 
 
- function Navbar() {
+function Navbar() {
     return (
         <NavbarAnimation>
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">

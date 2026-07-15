@@ -1,13 +1,6 @@
 import { PRProviderAdapter } from "./type";
 
 export class GitHubAdapter implements PRProviderAdapter {
-    isValidEvent(payload: any): boolean {
-        return !!payload?.pull_request && !!payload?.repository;
-    }
-
-    getAllowedActions(): string[] {
-        return ["opened", "synchronize", "reopened"];
-    }
 
     getPRData(payload: any) {
         const pr = payload.pull_request;
