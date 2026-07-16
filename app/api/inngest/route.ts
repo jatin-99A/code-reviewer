@@ -1,8 +1,8 @@
 import { serve } from "inngest/next";
 import { inngest } from "@/lib/inngest/client";
-import { processTask } from "./function";
+import { ReviewWorkflow } from "@/server/services/core/review/review-service";
 
 export const { GET, POST, PUT } = serve({
     client: inngest,
-    functions: [processTask],
+    functions: [ReviewWorkflow.reviewPullRequest],
 });

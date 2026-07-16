@@ -1,8 +1,9 @@
+import { TriggerPayload } from "../../utils/type";
 import { PRProviderAdapter } from "./type";
 
 export class GitHubAdapter implements PRProviderAdapter {
 
-    getPRData(payload: any) {
+    getPRData(payload: TriggerPayload["payload"]) {
         const pr = payload.pull_request;
 
         return {

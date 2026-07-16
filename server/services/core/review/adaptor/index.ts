@@ -1,8 +1,8 @@
 import prisma from "@/lib/db";
 import { getProviderAdapter } from "./resolver";
-import { TriggerPayload } from "../utils/type";
+import { ReturnTypeOfHandlePr, TriggerPayload } from "../utils/type";
 
-export async function handlePr(input: TriggerPayload) {
+export async function handlePr(input: TriggerPayload): Promise<ReturnTypeOfHandlePr> {
     const adapter = getProviderAdapter(input.provider);
 
     const pr = adapter.getPRData(input.payload);

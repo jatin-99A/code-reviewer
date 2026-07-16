@@ -1,6 +1,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { ReviewWorkflow } from "../review/review-service";
+import { TriggerPayload } from "../review/utils/type";
 
 export default class GithubWebhookService {
     public static async handleWebhook(req: Request): Promise<Response> {
@@ -66,12 +67,11 @@ export default class GithubWebhookService {
             // Listening PR event
             if (event === "pull_request") {
                 const allowedActions = ["opened", "synchronize", "reopened"];
-                const webhookPayload = payload as
-                    | {
-                        action?: string;
-                        installation?: { id?: number };
-                    }
-                    | null;
+                const webhookPayload = payload as TriggerPayload["payload"] & {
+                    installation?: {
+                        id?: number;
+                    };
+                };
 
                 if (
                     webhookPayload &&
@@ -80,11 +80,11 @@ export default class GithubWebhookService {
                     typeof webhookPayload.installation?.id === "number"
                 ) {
                     await ReviewWorkflow.trigger({
-                        payload: webhookPayload,
+                        payload,
                         deliveryId: delivery,
                         installationId: webhookPayload.installation.id,
                         provider: "github",
-                    });
+                    } as TriggerPayload);
                 }
             }
 
