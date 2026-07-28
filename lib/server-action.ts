@@ -1,11 +1,11 @@
 export async function handleServerAction<T>(
     action: () => Promise<T>,
-    message = "Something went wrong."
+    errorResponse: T | string = "Something went wrong."
 ): Promise<T> {
     try {
         return await action();
     } catch (error) {
         console.error(error);
-        throw new Error(message);
+        return errorResponse as T;
     }
 }
