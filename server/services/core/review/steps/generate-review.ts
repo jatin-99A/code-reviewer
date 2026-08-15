@@ -1,6 +1,7 @@
 import { generateText } from "ai";
 import { llm } from "@/lib/ai";
 import { SYSTEM_PROMPT } from "@/lib/prompts/system";
+import { CHUNK_REVIEW_PROMPT } from "@/lib/prompts/review-prompt";
 
 const REVIEW_MODEL = "openrouter/free";
 
@@ -18,17 +19,35 @@ Related code from the repository (for context only, not part of the change):
 ${repoContext}`;
 }
 
+export async function generateChunkReview(
+    repoName: string,
+    title: string,
+    chunkText: string,
+    contextSnippets: string[]
+) {
+    const { text } = await generateText({
+        model: llm(REVIEW_MODEL),
+        system: CHUNK_REVIEW_PROMPT,
+        prompt: `Repository: ${repoName}
+Pull request title: ${title}
 
-export async function generateReview(repoName: string, title: string, diff: string) {
+## Code Chunk to review:
+${chunkText}${buildRepoContextSection(contextSnippets)}`,
+    });
+
+    return text;
+}
+
+export async function generateReview(repoName: string, title: string, chunkReviewsContent: string) {
     const { text } = await generateText({
         model: llm(REVIEW_MODEL),
         system: SYSTEM_PROMPT,
         prompt: `Repository: ${repoName}
 Pull request title: ${title}
 
-## Changed files (unified diff)
+## Generated chunk findings to consolidate:
 
-${diff}${buildRepoContextSection([])}`,
+${chunkReviewsContent}`,
     });
 
     return text;

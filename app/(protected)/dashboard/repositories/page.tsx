@@ -1,7 +1,6 @@
 import { RepositoriesView } from "@/features/dashboard/components/repos/repositories.view";
 import { TopBar } from "@/features/dashboard/components/topbar";
 import { getGithubInstallationRepositories } from "@/features/github/actions";
-import { GithubRepo } from "@/server/services/core/github/github-repositories-service";
 
 export default async function RepositoriesPage() {
   let repositories: Awaited<ReturnType<typeof getGithubInstallationRepositories>> | null = null;
@@ -22,7 +21,7 @@ export default async function RepositoriesPage() {
       <main className="flex-1 p-4 sm:p-6">
         <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
-            <span className="font-medium text-foreground">{repositories?.repos.length}</span>
+            <span className="font-medium text-foreground">{repositories?.repos?.length ?? 0}</span>
             <span>repositories</span>
           </div>
         </div>
